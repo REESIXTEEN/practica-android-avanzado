@@ -9,7 +9,7 @@ import com.example.practica_android_avanzado.R
 import com.example.practica_android_avanzado.databinding.FragmentDetailsBinding
 import com.example.practica_android_avanzado.ui.main.MainActivity
 import com.example.practica_android_avanzado.ui.main.MainActivityViewModel
-import com.example.practica_android_avanzado.model.Heroe
+import com.example.practica_android_avanzado.ui.model.Hero
 import dagger.hilt.android.AndroidEntryPoint
 
 //import com.squareup.picasso.Picasso
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FragmentDetail(private val viewModel: MainActivityViewModel, private val pos: Int) : Fragment() {
 
     private lateinit var binding: FragmentDetailsBinding
-    private lateinit var heroe: Heroe
+    private lateinit var heroe: Hero
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

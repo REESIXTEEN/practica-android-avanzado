@@ -13,5 +13,5 @@ interface DragonBallApi {
     suspend fun login(@Header("Authorization") credentials: String): String
 
     @POST("api/heros/all")
-    suspend fun getHeros(@Header("Authorization: Bearer ") authorization: String, @Body getHerosRequestBody: GetHerosRequestBody): List<GetHerosResponse>
+    suspend fun getHeros(@Header("Authorization") authorization: String, @Body getHerosRequestBody: GetHerosRequestBody): List<GetHerosResponse>
 }

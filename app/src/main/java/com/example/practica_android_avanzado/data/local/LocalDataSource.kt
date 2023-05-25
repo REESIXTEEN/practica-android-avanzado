@@ -1,11 +1,20 @@
 package com.example.practica_android_avanzado.data.local
 
 import com.example.practica_android_avanzado.data.local.model.LocalHero
+import javax.inject.Inject
 
-interface LocalDataSource {
-    suspend fun getHeros(): List<LocalHero>
+class LocalDataSource @Inject constructor(private val dao: SuperheroDAO) {
 
-    suspend fun insertHero(localSuperhero: LocalHero)
+    suspend fun getHeros(): List<LocalHero>{
+        return dao.getAll()
+    }
 
-    suspend fun insertHeros(localSuperheros: List<LocalHero>)
+    suspend fun insertHero(localSuperhero: LocalHero){
+        dao.insertAllList(listOf(localSuperhero))
+    }
+
+    suspend fun insertHeros(localSuperheros: List<LocalHero>){
+        dao.insertAllList(localSuperheros)
+    }
+
 }

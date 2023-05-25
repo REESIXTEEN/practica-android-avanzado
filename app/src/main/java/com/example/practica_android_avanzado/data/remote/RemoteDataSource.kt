@@ -20,7 +20,7 @@ class RemoteDataSource @Inject constructor(private val api: DragonBallApi, priva
     }
 
     suspend fun getHeros(): List<GetHerosResponse> {
-        return api.getHeros(getToken(), GetHerosRequestBody())
+        return api.getHeros("Bearer ${getToken()}", GetHerosRequestBody())
     }
 
 

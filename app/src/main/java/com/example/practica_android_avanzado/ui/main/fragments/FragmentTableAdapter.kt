@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practica_android_avanzado.R
 import com.example.practica_android_avanzado.databinding.CardHeroeBinding
-import com.example.practica_android_avanzado.model.Heroe
+import com.example.practica_android_avanzado.ui.model.Hero
 
 
 interface HeroeClicked {
@@ -13,13 +13,13 @@ interface HeroeClicked {
 }
 
 class FragmentTableAdapter(
-    var listHeroes: List<Heroe>,
+    var listHeroes: List<Hero>,
     private val heroeClicked: HeroeClicked
 ): RecyclerView.Adapter<FragmentTableAdapter.MainActivityViewHolder>() {
 
     class MainActivityViewHolder(private var item: CardHeroeBinding) : RecyclerView.ViewHolder(item.root) {
 
-        fun showHeroe(heroe: Heroe) {
+        fun showHeroe(heroe: Hero) {
             item.heroeName.text = heroe.name
 //            Picasso.get().load(heroe.photo).placeholder(R.drawable.baseline_person_24).into(item.imageView);
 

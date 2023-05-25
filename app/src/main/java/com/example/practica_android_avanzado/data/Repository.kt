@@ -14,8 +14,7 @@ class Repository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
     private val localToPresentationMapper: LocalToPresentationMapper,
-    private val remoteToLocalMapper: RemoteToLocalMapper,
-    private val shared: SharedPreferences
+    private val remoteToLocalMapper: RemoteToLocalMapper
 ){
 
     suspend fun login(email: String, password: String): String {
@@ -23,12 +22,14 @@ class Repository @Inject constructor(
     }
 
     suspend fun getHeros(): List<Hero> {
-        if (localDataSource.getHeros().isEmpty()) {
-            val remoteSuperheros = remoteDataSource.getHeros()
-            localDataSource.insertHeros(remoteToLocalMapper.mapGetHeroResponse(remoteSuperheros))
-        }
+//        if (localDataSource.getHeros().isEmpty()) {
+//            val remoteSuperheros = remoteDataSource.getHeros()
+//            localDataSource.insertHeros(remoteToLocalMapper.mapGetHeroResponse(remoteSuperheros))
+//        }
+//
+//        return localToPresentationMapper.mapLocalSuperheros(localDataSource.getHeros())
 
-        return localToPresentationMapper.mapLocalSuperheros(localDataSource.getHeros())
+        return  localToPresentationMapper.mapLocalSuperheros(remoteDataSource.getHeros())
     }
 
 
