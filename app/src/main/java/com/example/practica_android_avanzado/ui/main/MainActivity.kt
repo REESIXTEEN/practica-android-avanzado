@@ -4,10 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.example.practica_android_avanzado.databinding.ActivityMainBinding
 import com.example.practica_android_avanzado.ui.login.LoginActivity
-import com.example.practica_android_avanzado.ui.main.fragments.FragmentTable
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val viewModel : MainActivityViewModel by viewModels()
 
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 //            .commitNow()
 
         binding.logOutBtn.setOnClickListener {
-            viewModel.deleteToken(this)
+            viewModel.deleteToken()
             val intent = Intent(baseContext, LoginActivity::class.java)
             startActivity(intent)
             finish()

@@ -9,6 +9,10 @@ class LocalDataSource @Inject constructor(private val dao: SuperheroDAO) {
         return dao.getAll()
     }
 
+    suspend fun getHero(id: String): List<LocalHero>{
+        return dao.getHero(id)
+    }
+
     suspend fun insertHero(localSuperhero: LocalHero){
         dao.insertAllList(listOf(localSuperhero))
     }

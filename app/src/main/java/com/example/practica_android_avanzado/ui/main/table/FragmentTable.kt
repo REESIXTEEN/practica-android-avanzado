@@ -1,4 +1,4 @@
-package com.example.practica_android_avanzado.ui.main.fragments
+package com.example.practica_android_avanzado.ui.main.table
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,9 +15,10 @@ import com.example.practica_android_avanzado.databinding.FragmentTableBinding
 import com.example.practica_android_avanzado.ui.main.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.navigation.fragment.findNavController
 
 @AndroidEntryPoint
-class FragmentTable : Fragment(), HeroeClicked {
+class FragmentTable : Fragment(), HeroClicked {
 
     private lateinit var binding: FragmentTableBinding
     private val viewModel : MainActivityViewModel by viewModels()
@@ -25,7 +26,7 @@ class FragmentTable : Fragment(), HeroeClicked {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.getHeroes()
+        viewModel.getHeros()
 
     }
 
@@ -71,8 +72,10 @@ class FragmentTable : Fragment(), HeroeClicked {
 
     }
 
-    override fun clicked(pos: Int) {
-
+    override fun clicked(id: String) {
+        findNavController().navigate(
+            FragmentTableDirections.actionFragmentTableToFragmentDetail(id)
+        )
     }
 
 }

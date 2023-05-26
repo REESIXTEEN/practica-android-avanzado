@@ -10,8 +10,12 @@ import com.example.practica_android_avanzado.data.local.model.LocalHero
 
 @Dao
 interface SuperheroDAO {
+
     @Query("SELECT * FROM superheros")
     suspend fun getAll(): List<LocalHero>
+
+    @Query("SELECT * FROM superheros WHERE id = :id")
+    suspend fun getHero(id: String): List<LocalHero>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllVararg(vararg users: LocalHero)

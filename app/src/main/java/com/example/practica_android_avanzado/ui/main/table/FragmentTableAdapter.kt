@@ -1,4 +1,4 @@
-package com.example.practica_android_avanzado.ui.main.fragments
+package com.example.practica_android_avanzado.ui.main.table
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,22 +6,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.practica_android_avanzado.R
 import com.example.practica_android_avanzado.databinding.CardHeroeBinding
 import com.example.practica_android_avanzado.ui.model.Hero
+import com.squareup.picasso.Picasso
 
 
-interface HeroeClicked {
-    fun clicked(pos: Int)
+interface HeroClicked {
+    fun clicked(id: String)
 }
 
 class FragmentTableAdapter(
     var listHeroes: List<Hero>,
-    private val heroeClicked: HeroeClicked
+    private val heroClicked: HeroClicked
 ): RecyclerView.Adapter<FragmentTableAdapter.MainActivityViewHolder>() {
 
     class MainActivityViewHolder(private var item: CardHeroeBinding) : RecyclerView.ViewHolder(item.root) {
 
-        fun showHeroe(heroe: Hero) {
-            item.heroeName.text = heroe.name
-//            Picasso.get().load(heroe.photo).placeholder(R.drawable.baseline_person_24).into(item.imageView);
+        fun showHeroe(hero: Hero) {
+            item.heroeName.text = hero.name
+            Picasso.get().load(hero.photo).placeholder(R.drawable.baseline_person_24).into(item.imageView);
 
         }
     }
@@ -43,7 +44,7 @@ class FragmentTableAdapter(
         holder.showHeroe(listHeroes[position])
 
         holder.itemView.setOnClickListener {
-            heroeClicked.clicked(position)
+            heroClicked.clicked(listHeroes[position].id)
         }
     }
 

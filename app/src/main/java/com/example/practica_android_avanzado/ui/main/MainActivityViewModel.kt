@@ -30,11 +30,11 @@ class MainActivityViewModel @Inject constructor(
 //        token = shared.getString("token", "").toString()
 //    }
 
-    fun deleteToken(context: Context) {
+    fun deleteToken() {
         shared.edit().remove("token").apply()
     }
 
-    fun getHeroes() {
+    fun getHeros() {
         _mainStatus.value = MainStatus.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {

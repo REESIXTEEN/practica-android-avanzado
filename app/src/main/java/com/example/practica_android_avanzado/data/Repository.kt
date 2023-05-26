@@ -22,14 +22,16 @@ class Repository @Inject constructor(
     }
 
     suspend fun getHeros(): List<Hero> {
-//        if (localDataSource.getHeros().isEmpty()) {
-//            val remoteSuperheros = remoteDataSource.getHeros()
-//            localDataSource.insertHeros(remoteToLocalMapper.mapGetHeroResponse(remoteSuperheros))
-//        }
-//
-//        return localToPresentationMapper.mapLocalSuperheros(localDataSource.getHeros())
+        if (localDataSource.getHeros().isEmpty()) {
+            val remoteSuperheros = remoteDataSource.getHeros()
+            localDataSource.insertHeros(remoteToLocalMapper.mapGetHeroResponse(remoteSuperheros))
+        }
 
-        return  localToPresentationMapper.mapLocalSuperheros(remoteDataSource.getHeros())
+        return localToPresentationMapper.mapLocalSuperheros(localDataSource.getHeros())
+    }
+
+    suspend fun getHero(id: String): Hero {
+        return localToPresentationMapper.mapLocalSuperheros(localDataSource.getHero(id)).first()
     }
 
 

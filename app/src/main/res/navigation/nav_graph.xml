@@ -6,19 +6,23 @@
     app:startDestination="@id/fragmentTable">
     <fragment
         android:id="@+id/fragmentTable"
-        android:name="com.example.practica_android_avanzado.ui.main.fragments.FragmentTable"
+        android:name="com.example.practica_android_avanzado.ui.main.table.FragmentTable"
         android:label="fragment_table"
         tools:layout="@layout/fragment_table" >
         <action
             android:id="@+id/action_fragmentTable_to_fragmentDetail"
             app:destination="@id/fragmentDetail" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentDetail"
-        android:name="com.example.practica_android_avanzado.ui.main.fragments.FragmentDetail"
+        android:name="com.example.practica_android_avanzado.ui.main.detail.FragmentDetail"
         android:label="FragmentDetail" >
-        <action
-            android:id="@+id/action_fragmentDetail_to_fragmentTable"
-            app:destination="@id/fragmentTable" />
+
+        <argument
+            android:name="heroId"
+            app:argType="string"
+            app:nullable="false" />
+
     </fragment>
 </navigation>
