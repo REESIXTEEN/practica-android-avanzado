@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.practica_android_avanzado.data.local.model.LocalHero
 
 
@@ -16,6 +17,9 @@ interface SuperheroDAO {
 
     @Query("SELECT * FROM superheros WHERE id = :id")
     suspend fun getHero(id: String): List<LocalHero>
+
+    @Update
+    suspend fun updateHero(hero: LocalHero)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllVararg(vararg users: LocalHero)

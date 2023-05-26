@@ -14,12 +14,10 @@ import androidx.navigation.fragment.navArgs
 import com.example.practica_android_avanzado.R
 import com.example.practica_android_avanzado.databinding.FragmentDetailsBinding
 import com.example.practica_android_avanzado.ui.main.MainActivity
-import com.example.practica_android_avanzado.ui.main.MainActivityViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-//import com.squareup.picasso.Picasso
 
 
 @AndroidEntryPoint
@@ -33,10 +31,6 @@ class FragmentDetail() : Fragment() {
         super.onCreate(savedInstanceState)
 
         viewModel.getHero(args.heroId)
-
-//        requireActivity().onBackPressedDispatcher.addCallback(this) {
-//            goBack()
-//        }
     }
 
     override fun onCreateView(
@@ -56,22 +50,22 @@ class FragmentDetail() : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.detailStatus.collect {
                     when (it) {
-                        is DetailViewModel.Detailtatus.Loading -> {
+                        is DetailViewModel.DetailStatus.Loading -> {
                             binding.loading.visibility = View.VISIBLE
                         }
 
-                        is DetailViewModel.Detailtatus.Error -> {
+                        is DetailViewModel.DetailStatus.Error -> {
                             binding.loading.visibility = View.GONE
                             Toast.makeText(requireContext(), it.error, Toast.LENGTH_LONG).show()
                         }
 
-                        is DetailViewModel.Detailtatus.Success -> {
+                        is DetailViewModel.DetailStatus.Success -> {
                             binding.loading.visibility = View.GONE
                             Picasso.get().load(it.hero.photo).placeholder(R.drawable.baseline_person_24).into(binding.heroImage)
                             (requireActivity() as MainActivity).binding.toolbar.title = it.hero.name
                             binding.heroName.text = it.hero.name
                             binding.heroDescription.text = it.hero.description
-                            if(it.hero.favorite) binding
+                            if(it.hero.favorite) binding.heroFav.setImageResource(R.drawable.baseline_favorite)
 
                         }
                     }
@@ -79,13 +73,12 @@ class FragmentDetail() : Fragment() {
             }
         }
 
+        binding.heroImage.setOnClickListener {
+            viewModel.updateFav()
+        }
 
     }
 
-//    private fun goBack(){
-//        requireActivity().supportFragmentManager.popBackStack()
-//
-//    }
 
 
 
