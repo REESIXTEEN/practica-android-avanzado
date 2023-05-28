@@ -65,8 +65,7 @@ class FragmentDetail() : Fragment() {
                             (requireActivity() as MainActivity).binding.toolbar.title = it.hero.name
                             binding.heroName.text = it.hero.name
                             binding.heroDescription.text = it.hero.description
-                            if(it.hero.favorite) binding.heroFav.setImageResource(R.drawable.baseline_favorite)
-                            else binding.heroFav.setImageResource(R.drawable.baseline_favorite_border_24)
+                            updateFav()
 
                         }
                     }
@@ -76,8 +75,14 @@ class FragmentDetail() : Fragment() {
 
         binding.heroFav.setOnClickListener {
             viewModel.updateFav()
+            updateFav()
         }
 
+    }
+
+    private fun updateFav() {
+        if(viewModel.hero.favorite) binding.heroFav.setImageResource(R.drawable.baseline_favorite)
+        else binding.heroFav.setImageResource(R.drawable.baseline_favorite_border_24)
     }
 
 

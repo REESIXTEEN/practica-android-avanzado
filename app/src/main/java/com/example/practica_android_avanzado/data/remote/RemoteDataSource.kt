@@ -3,6 +3,7 @@ package com.example.practica_android_avanzado.data.remote
 import android.content.SharedPreferences
 import com.example.practica_android_avanzado.data.remote.api.DragonBallApi
 import com.example.practica_android_avanzado.data.remote.request.GetHerosRequestBody
+import com.example.practica_android_avanzado.data.remote.request.HeroFavRequestBody
 import com.example.practica_android_avanzado.data.remote.response.GetHerosResponse
 import okhttp3.Callback
 import okhttp3.Credentials
@@ -23,6 +24,9 @@ class RemoteDataSource @Inject constructor(private val api: DragonBallApi, priva
         return api.getHeros("Bearer ${getToken()}", GetHerosRequestBody())
     }
 
+    suspend fun updateHeroFav(heroId: String) {
+        return api.updateHeroFav("Bearer ${getToken()}", HeroFavRequestBody(heroId))
+    }
 
     private fun getToken(): String {
         return shared.getString("token", "") ?: ""

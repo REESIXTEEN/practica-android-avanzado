@@ -19,7 +19,7 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
 
     private val _detailStatus = MutableStateFlow<DetailStatus>(DetailStatus.Loading)
     val detailStatus: StateFlow<DetailStatus> = _detailStatus
-    private lateinit var hero: Hero
+    lateinit var hero: Hero
 
 
     fun getHero(id: String) {
@@ -36,7 +36,6 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
     }
 
     fun updateFav() {
-        _detailStatus.value = DetailStatus.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 hero.favorite = !hero.favorite
@@ -44,7 +43,7 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
                 Log.i("TAG", "Hero updated")
                 _detailStatus.update { DetailStatus.Success(hero) }
             }catch (e: Exception) {
-                _detailStatus.value = DetailStatus.Error("Something went wrong. $e")
+                _detailStatus.value = DetailStatus.Error("Error updating fav. $e")
             }
         }
     }
