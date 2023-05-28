@@ -66,6 +66,7 @@ class FragmentDetail() : Fragment() {
                             binding.heroName.text = it.hero.name
                             binding.heroDescription.text = it.hero.description
                             if(it.hero.favorite) binding.heroFav.setImageResource(R.drawable.baseline_favorite)
+                            else binding.heroFav.setImageResource(R.drawable.baseline_favorite_border_24)
 
                         }
                     }
@@ -73,7 +74,7 @@ class FragmentDetail() : Fragment() {
             }
         }
 
-        binding.heroImage.setOnClickListener {
+        binding.heroFav.setOnClickListener {
             viewModel.updateFav()
         }
 

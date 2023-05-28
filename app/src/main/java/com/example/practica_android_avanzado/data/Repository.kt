@@ -36,8 +36,8 @@ class Repository @Inject constructor(
     }
 
     suspend fun updateHero(hero: Hero) {
-        val localhero = presentationToLocalMapper.mapPresentationHero(hero)
-        localDataSource.updateHero(localhero)
+        val localHero = presentationToLocalMapper.mapPresentationHero(hero)
+        localDataSource.updateHero(localHero)
     }
 
 
