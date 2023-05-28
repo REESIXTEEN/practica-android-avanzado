@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.practica_android_avanzado.data.Repository
 import com.example.practica_android_avanzado.ui.model.Hero
+import com.example.practica_android_avanzado.ui.model.HeroLocation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,7 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
     private val _detailStatus = MutableStateFlow<DetailStatus>(DetailStatus.Loading)
     val detailStatus: StateFlow<DetailStatus> = _detailStatus
     lateinit var hero: Hero
+    lateinit var heroLocation: HeroLocation
 
 
     fun getHero(id: String) {
@@ -27,6 +29,7 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 hero = repository.getHero(id)
+                heroLocation = repository.getHeroLocation(id)
                 Log.i("TAG", "Hero obtained from room")
                 _detailStatus.update { DetailStatus.Success(hero) }
             }catch (e: Exception) {
@@ -38,10 +41,8 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
     fun updateFav() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                hero.favorite = !hero.favorite
                 repository.updateHero(hero)
                 Log.i("TAG", "Hero updated")
-                _detailStatus.update { DetailStatus.Success(hero) }
             }catch (e: Exception) {
                 _detailStatus.value = DetailStatus.Error("Error updating fav. $e")
             }

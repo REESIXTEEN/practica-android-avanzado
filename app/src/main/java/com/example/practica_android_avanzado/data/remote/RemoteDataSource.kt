@@ -4,7 +4,9 @@ import android.content.SharedPreferences
 import com.example.practica_android_avanzado.data.remote.api.DragonBallApi
 import com.example.practica_android_avanzado.data.remote.request.GetHerosRequestBody
 import com.example.practica_android_avanzado.data.remote.request.HeroFavRequestBody
+import com.example.practica_android_avanzado.data.remote.request.HeroLocationRequestBody
 import com.example.practica_android_avanzado.data.remote.response.GetHerosResponse
+import com.example.practica_android_avanzado.data.remote.response.HeroLocationResponse
 import okhttp3.Callback
 import okhttp3.Credentials
 import retrofit2.Call
@@ -26,6 +28,10 @@ class RemoteDataSource @Inject constructor(private val api: DragonBallApi, priva
 
     suspend fun updateHeroFav(heroId: String) {
         return api.updateHeroFav("Bearer ${getToken()}", HeroFavRequestBody(heroId))
+    }
+
+    suspend fun getHeroLocation(heroId: String): List<HeroLocationResponse> {
+        return api.getHeroLocation("Bearer ${getToken()}", HeroLocationRequestBody(heroId))
     }
 
     private fun getToken(): String {

@@ -7,6 +7,7 @@ import com.example.practica_android_avanzado.data.mappers.PresentationToLocalMap
 import com.example.practica_android_avanzado.data.mappers.RemoteToLocalMapper
 import com.example.practica_android_avanzado.data.remote.RemoteDataSource
 import com.example.practica_android_avanzado.ui.model.Hero
+import com.example.practica_android_avanzado.ui.model.HeroLocation
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,6 +34,11 @@ class Repository @Inject constructor(
 
     suspend fun getHero(id: String): Hero {
         return localToPresentationMapper.mapLocalSuperheros(localDataSource.getHero(id)).first()
+    }
+
+    suspend fun getHeroLocation(id: String): HeroLocation {
+        return remoteToLocalMapper.mapGetHeroLocationResponse(remoteDataSource.getHeroLocation(id))
+
     }
 
     suspend fun updateHero(hero: Hero) {

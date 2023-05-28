@@ -2,10 +2,11 @@ package com.example.practica_android_avanzado.data.remote.api
 
 import com.example.practica_android_avanzado.data.remote.request.GetHerosRequestBody
 import com.example.practica_android_avanzado.data.remote.request.HeroFavRequestBody
+import com.example.practica_android_avanzado.data.remote.request.HeroLocationRequestBody
 import com.example.practica_android_avanzado.data.remote.response.GetHerosResponse
+import com.example.practica_android_avanzado.data.remote.response.HeroLocationResponse
 import retrofit2.http.Body
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface DragonBallApi {
@@ -18,6 +19,9 @@ interface DragonBallApi {
 
     @POST("api/data/herolike")
     suspend fun updateHeroFav(@Header("Authorization") authorization: String, @Body heroFavRequestBody: HeroFavRequestBody)
+
+    @POST("api/heros/locations")
+    suspend fun getHeroLocation(@Header("Authorization") authorization: String, @Body heroLocationRequestBody: HeroLocationRequestBody): List<HeroLocationResponse>
 
 
 }
