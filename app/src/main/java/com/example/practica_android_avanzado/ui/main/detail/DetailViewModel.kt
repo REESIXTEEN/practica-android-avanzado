@@ -21,7 +21,7 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
     private val _detailStatus = MutableStateFlow<DetailStatus>(DetailStatus.Loading)
     val detailStatus: StateFlow<DetailStatus> = _detailStatus
     lateinit var hero: Hero
-    lateinit var heroLocation: HeroLocation
+    var heroLocation: HeroLocation = HeroLocation(0.0,0.0)
 
 
     fun getHero(id: String) {
@@ -29,7 +29,6 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 hero = repository.getHero(id)
-                heroLocation = repository.getHeroLocation(id)
                 Log.i("TAG", "Hero obtained from room")
                 _detailStatus.update { DetailStatus.Success(hero) }
             }catch (e: Exception) {
@@ -44,10 +43,20 @@ class DetailViewModel @Inject constructor(private val repository: Repository): V
                 repository.updateHero(hero)
                 Log.i("TAG", "Hero updated")
             }catch (e: Exception) {
-                _detailStatus.value = DetailStatus.Error("Error updating fav. $e")
+                _detailStatus.value = DetailStatus.Error("Error updating fav in server. $e")
             }
         }
     }
+
+    fun getHeroLocation(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                heroLocation = repository.getHeroLocation(id)
+                Log.i("TAG", "Hero location obtained")
+            }catch (_: Exception) { }
+        }
+    }
+
 
     sealed class DetailStatus {
         object Loading : DetailStatus()

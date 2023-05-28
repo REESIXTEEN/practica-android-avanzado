@@ -17,6 +17,6 @@ class RemoteToLocalMapper @Inject constructor(){
     }
 
     fun mapGetHeroLocationResponse(getHeroLocationResponse: List<HeroLocationResponse>): HeroLocation {
-        return HeroLocation(getHeroLocationResponse.first().latitud, getHeroLocationResponse.first().longitud)
+        return HeroLocation(getHeroLocationResponse.first().latitud.toDouble(), getHeroLocationResponse.first().longitud.toDouble())
     }
 }
