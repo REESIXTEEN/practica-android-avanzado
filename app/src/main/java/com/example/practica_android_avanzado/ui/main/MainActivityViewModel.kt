@@ -25,11 +25,6 @@ class MainActivityViewModel @Inject constructor(
     private val _mainStatus = MutableStateFlow<MainStatus>(MainStatus.Loading)
     val mainStatus: StateFlow<MainStatus> = _mainStatus
 
-
-//    fun getToken(context: Context) {
-//        token = shared.getString("token", "").toString()
-//    }
-
     fun deleteToken() {
         shared.edit().remove("token").apply()
     }
